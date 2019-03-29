@@ -31,10 +31,20 @@ public class CollegeEvents extends javax.swing.JFrame {
         eventHeaderLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 100));
-        setPreferredSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         collegeEventPanel.setBackground(new java.awt.Color(5, 19, 56));
@@ -51,10 +61,69 @@ public class CollegeEvents extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Cultural Fest");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        jLabel1.setText("Workshops");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
 
-        collegeEventPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 150, 150));
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/workshop.png"))); // NOI18N
+        jButton2.setPreferredSize(new java.awt.Dimension(150, 110));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, -1));
+
+        collegeEventPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 170, 150, 150));
+
+        jPanel2.setBackground(new java.awt.Color(1, 60, 95));
+        jPanel2.setPreferredSize(new java.awt.Dimension(150, 150));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Cultural Fest");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(1, 60, 95));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/cultural_fest.png"))); // NOI18N
+        jButton1.setPreferredSize(new java.awt.Dimension(150, 110));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, -1));
+
+        collegeEventPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 150, 150));
+
+        jPanel3.setBackground(new java.awt.Color(1, 60, 95));
+        jPanel3.setPreferredSize(new java.awt.Dimension(150, 150));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Technical Fest");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+
+        jButton3.setBackground(new java.awt.Color(1, 60, 95));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/cultural_fest1.png"))); // NOI18N
+        jButton3.setPreferredSize(new java.awt.Dimension(150, 110));
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, -1));
+
+        collegeEventPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 150, 150));
+
+        jPanel5.setBackground(new java.awt.Color(1, 60, 95));
+        jPanel5.setPreferredSize(new java.awt.Dimension(150, 150));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Fresher Party");
+        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+
+        collegeEventPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, 150, 150));
+
+        jPanel6.setBackground(new java.awt.Color(1, 60, 95));
+        jPanel6.setPreferredSize(new java.awt.Dimension(150, 150));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Farewell");
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
+
+        collegeEventPanel.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 360, 150, 150));
 
         getContentPane().add(collegeEventPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -99,7 +168,18 @@ public class CollegeEvents extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel collegeEventPanel;
     private javax.swing.JLabel eventHeaderLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,16 @@
  * and open the template in the editor.
  */
 package my.aisha;
-
+import com.github.prominence.openweathermap.api.OpenWeatherMapManager;
+import com.github.prominence.openweathermap.api.WeatherRequester;
+import com.github.prominence.openweathermap.api.constants.Accuracy;
+import com.github.prominence.openweathermap.api.constants.Language;
+import com.github.prominence.openweathermap.api.constants.Unit;
+import com.github.prominence.openweathermap.api.exception.DataNotFoundException;
+import com.github.prominence.openweathermap.api.exception.InvalidAuthTokenException;
+import com.github.prominence.openweathermap.api.model.response.Weather;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Ajay
@@ -14,9 +23,14 @@ public class AishaWeather extends javax.swing.JFrame {
     /**
      * Creates new form AishaWeather
      */
+    Weather weatherResponse;
+    OpenWeatherMapManager openWeatherManager;
+    WeatherRequester weatherRequester;
+    
     public AishaWeather() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,126 +44,72 @@ public class AishaWeather extends javax.swing.JFrame {
         tempLabel = new javax.swing.JLabel();
         headerLabel = new javax.swing.JLabel();
         headerLabel1 = new javax.swing.JLabel();
-        monLabel = new javax.swing.JLabel();
-        tueLabel = new javax.swing.JLabel();
-        wedLabel = new javax.swing.JLabel();
-        thursLabel = new javax.swing.JLabel();
-        friLabel = new javax.swing.JLabel();
-        satLabel = new javax.swing.JLabel();
-        sunLabel = new javax.swing.JLabel();
-        monIconLabel = new javax.swing.JLabel();
-        tueIconLabel = new javax.swing.JLabel();
-        wedIconLabel = new javax.swing.JLabel();
-        thurIconLabel = new javax.swing.JLabel();
-        friIconLabel = new javax.swing.JLabel();
-        satIconLabel = new javax.swing.JLabel();
-        sunIconLabel = new javax.swing.JLabel();
+        weatherInfoTitle = new javax.swing.JLabel();
+        tempInfoLabel = new javax.swing.JLabel();
+        minTempLabel = new javax.swing.JLabel();
+        maxTempLabel = new javax.swing.JLabel();
+        weatherInfo = new javax.swing.JLabel();
         headerIconLabel1 = new javax.swing.JLabel();
-        hearedIconLabel = new javax.swing.JLabel();
         headerTempDescLabel = new javax.swing.JLabel();
         backgroundLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Forecast");
-        setMaximumSize(new java.awt.Dimension(1200, 600));
+        setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tempLabel.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 48)); // NOI18N
         tempLabel.setForeground(new java.awt.Color(255, 255, 255));
-        tempLabel.setText("18º C");
+        tempLabel.setText(myTemp("Delhi"));
         getContentPane().add(tempLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, -1));
 
         headerLabel.setFont(new java.awt.Font("Times New Roman", 0, 26)); // NOI18N
         headerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        headerLabel.setText("Noida, India");
-        getContentPane().add(headerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 150, 60));
+        headerLabel.setText(getMyCity());
+        getContentPane().add(headerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 150, 60));
 
         headerLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         headerLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        headerLabel1.setText("Weather Forecast");
-        getContentPane().add(headerLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 210, 40));
+        headerLabel1.setText(myTempDate());
+        getContentPane().add(headerLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 380, 40));
 
-        monLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        monLabel.setForeground(new java.awt.Color(255, 255, 255));
-        monLabel.setText("Monday");
-        getContentPane().add(monLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, -1, -1));
+        weatherInfoTitle.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        weatherInfoTitle.setForeground(new java.awt.Color(255, 255, 255));
+        weatherInfoTitle.setText("Today's Weather Info ");
+        getContentPane().add(weatherInfoTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
 
-        tueLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        tueLabel.setForeground(new java.awt.Color(255, 255, 255));
-        tueLabel.setText("Tuesday");
-        getContentPane().add(tueLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
+        String str[]=getAllWeatherInfo();
+        tempInfoLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        tempInfoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        tempInfoLabel.setText(str[0]);
+        getContentPane().add(tempInfoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 280, 50));
 
-        wedLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        wedLabel.setForeground(new java.awt.Color(255, 255, 255));
-        wedLabel.setText("Wednesday");
-        getContentPane().add(wedLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, -1, -1));
+        minTempLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        minTempLabel.setForeground(new java.awt.Color(255, 255, 255));
+        minTempLabel.setText(str[1]);
+        getContentPane().add(minTempLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, -1));
 
-        thursLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        thursLabel.setForeground(new java.awt.Color(255, 255, 255));
-        thursLabel.setText("Thursday");
-        getContentPane().add(thursLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, -1));
+        maxTempLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        maxTempLabel.setForeground(new java.awt.Color(255, 255, 255));
+        maxTempLabel.setText(str[2]);
+        getContentPane().add(maxTempLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
 
-        friLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        friLabel.setForeground(new java.awt.Color(255, 255, 255));
-        friLabel.setText("Friday");
-        getContentPane().add(friLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 320, -1, -1));
-
-        satLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        satLabel.setForeground(new java.awt.Color(255, 255, 255));
-        satLabel.setText("Saturday");
-        getContentPane().add(satLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 320, -1, -1));
-
-        sunLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        sunLabel.setForeground(new java.awt.Color(255, 255, 255));
-        sunLabel.setText("Sunday");
-        getContentPane().add(sunLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 320, 80, -1));
-
-        monIconLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        monIconLabel.setForeground(new java.awt.Color(255, 255, 255));
-        monIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/Rainy.png"))); // NOI18N
-        getContentPane().add(monIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, -1, -1));
-
-        tueIconLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        tueIconLabel.setForeground(new java.awt.Color(255, 255, 255));
-        tueIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/PartilyCloud.png"))); // NOI18N
-        getContentPane().add(tueIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, -1, -1));
-
-        wedIconLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        wedIconLabel.setForeground(new java.awt.Color(255, 255, 255));
-        wedIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/Sunny.png"))); // NOI18N
-        getContentPane().add(wedIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 360, -1, -1));
-
-        thurIconLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        thurIconLabel.setForeground(new java.awt.Color(255, 255, 255));
-        thurIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/Sunny.png"))); // NOI18N
-        getContentPane().add(thurIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 360, -1, -1));
-
-        friIconLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        friIconLabel.setForeground(new java.awt.Color(255, 255, 255));
-        friIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/PartilyCloud.png"))); // NOI18N
-        getContentPane().add(friIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 360, -1, -1));
-
-        satIconLabel.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        satIconLabel.setForeground(new java.awt.Color(255, 255, 255));
-        satIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/Rainy.png"))); // NOI18N
-        getContentPane().add(satIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 360, -1, -1));
-
-        sunIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/Sunny.png"))); // NOI18N
-        getContentPane().add(sunIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 360, -1, -1));
+        if(myWeatherInfo().equalsIgnoreCase("haze"));
+        {
+            weatherInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/PartilyCloud.png")));
+        }
+        getContentPane().add(weatherInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, -1, -1));
 
         headerIconLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/weather.png"))); // NOI18N
         headerIconLabel1.setText("jLabel6");
         getContentPane().add(headerIconLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 160, 160));
 
-        hearedIconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/Sunny.png"))); // NOI18N
-        getContentPane().add(hearedIconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, -1, -1));
-
         headerTempDescLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         headerTempDescLabel.setForeground(new java.awt.Color(255, 255, 255));
-        headerTempDescLabel.setText("Sunny");
-        getContentPane().add(headerTempDescLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, -1, -1));
+        headerTempDescLabel.setText(myWeatherInfo());
+        getContentPane().add(headerTempDescLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, -1, -1));
 
         backgroundLabel.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         backgroundLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,6 +119,48 @@ public class AishaWeather extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public String myTemp(String str)
+    {
+        try {
+                openWeatherManager = new OpenWeatherMapManager("f4df9c1aed9db5ffc8bb586450e8a36f");
+                weatherRequester = openWeatherManager.getWeatherRequester();
+
+                weatherResponse = weatherRequester.setLanguage(Language.ENGLISH)
+                    .setUnitSystem(Unit.METRIC_SYSTEM)
+                    .setAccuracy(Accuracy.ACCURATE)
+                    .getByCityName(str);           
+        } catch (InvalidAuthTokenException | DataNotFoundException ex) {
+            Logger.getLogger(Test11.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        String unit=String.valueOf(weatherResponse.getTemperatureUnit()); 
+       String temp= String.valueOf(weatherResponse.getTemperature()) ;
+       return temp+" "+unit; 
+    }
+    
+    public String myWeatherInfo()
+    {      
+       String info=String.valueOf(weatherResponse.getWeatherDescription());
+        
+        return info;        
+    }
+    public String getMyCity()
+    {       
+        String city=weatherResponse.getCityName();
+        String country=weatherResponse.getCountry();
+        return city+", "+country;        
+    }
+    public String myTempDate()
+    {
+        return weatherResponse.getDataCalculationDate().toString();
+    }
+    
+    public String[] getAllWeatherInfo()
+    {
+       String str=weatherResponse.getWeatherInfo().toString(); 
+       String str1[]=str.split(";");
+       return str1;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -196,25 +198,15 @@ public class AishaWeather extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backgroundLabel;
-    private javax.swing.JLabel friIconLabel;
-    private javax.swing.JLabel friLabel;
     private javax.swing.JLabel headerIconLabel1;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JLabel headerLabel1;
     private javax.swing.JLabel headerTempDescLabel;
-    private javax.swing.JLabel hearedIconLabel;
-    private javax.swing.JLabel monIconLabel;
-    private javax.swing.JLabel monLabel;
-    private javax.swing.JLabel satIconLabel;
-    private javax.swing.JLabel satLabel;
-    private javax.swing.JLabel sunIconLabel;
-    private javax.swing.JLabel sunLabel;
+    private javax.swing.JLabel maxTempLabel;
+    private javax.swing.JLabel minTempLabel;
+    private javax.swing.JLabel tempInfoLabel;
     private javax.swing.JLabel tempLabel;
-    private javax.swing.JLabel thurIconLabel;
-    private javax.swing.JLabel thursLabel;
-    private javax.swing.JLabel tueIconLabel;
-    private javax.swing.JLabel tueLabel;
-    private javax.swing.JLabel wedIconLabel;
-    private javax.swing.JLabel wedLabel;
+    private javax.swing.JLabel weatherInfo;
+    private javax.swing.JLabel weatherInfoTitle;
     // End of variables declaration//GEN-END:variables
 }

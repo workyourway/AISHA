@@ -38,8 +38,8 @@ public class AISHA_HOME extends javax.swing.JFrame {
         weatherLabel = new javax.swing.JLabel();
         btn_weather = new javax.swing.JButton();
         cirPanel = new javax.swing.JPanel();
-        circularLabel = new javax.swing.JLabel();
-        btn_circular = new javax.swing.JButton();
+        studentLabel = new javax.swing.JLabel();
+        studentBtn = new javax.swing.JButton();
         examPanel = new javax.swing.JPanel();
         examLabel = new javax.swing.JLabel();
         btn_examUpdate = new javax.swing.JButton();
@@ -124,19 +124,19 @@ public class AISHA_HOME extends javax.swing.JFrame {
         cirPanel.setPreferredSize(new java.awt.Dimension(150, 150));
         cirPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        circularLabel.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
-        circularLabel.setForeground(new java.awt.Color(255, 255, 255));
-        circularLabel.setText("Circulars");
-        cirPanel.add(circularLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
+        studentLabel.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
+        studentLabel.setForeground(new java.awt.Color(255, 255, 255));
+        studentLabel.setText(" Student Details");
+        cirPanel.add(studentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, -1));
 
-        btn_circular.setBackground(new java.awt.Color(1, 60, 95));
-        btn_circular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/notification.png"))); // NOI18N
-        btn_circular.addActionListener(new java.awt.event.ActionListener() {
+        studentBtn.setBackground(new java.awt.Color(1, 60, 95));
+        studentBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/my/aisha/images/notification.png"))); // NOI18N
+        studentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_circularActionPerformed(evt);
+                studentBtnActionPerformed(evt);
             }
         });
-        cirPanel.add(btn_circular, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 150, 110));
+        cirPanel.add(studentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 150, 110));
 
         aishaHomePanel.add(cirPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, -1, -1));
 
@@ -239,11 +239,11 @@ public class AISHA_HOME extends javax.swing.JFrame {
         aw.setVisible(true);
     }//GEN-LAST:event_btn_weatherActionPerformed
 
-    private void btn_circularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_circularActionPerformed
+    private void studentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentBtnActionPerformed
         // TODO add your handling code here:
-        Circulars circular=new Circulars();
+        StudentDetails circular=new StudentDetails();
         circular.setVisible(true);
-    }//GEN-LAST:event_btn_circularActionPerformed
+    }//GEN-LAST:event_studentBtnActionPerformed
 
     private void btn_aktuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_aktuActionPerformed
         // TODO add your handling code here:
@@ -316,14 +316,12 @@ public class AISHA_HOME extends javax.swing.JFrame {
     private javax.swing.JLabel aktuLabel;
     private javax.swing.JPanel aktuPanel;
     private javax.swing.JButton btn_aktu;
-    private javax.swing.JButton btn_circular;
     private javax.swing.JButton btn_collegeEvents;
     private javax.swing.JButton btn_examUpdate;
     private javax.swing.JButton btn_news;
     private javax.swing.JButton btn_speak;
     private javax.swing.JButton btn_weather;
     private javax.swing.JPanel cirPanel;
-    private javax.swing.JLabel circularLabel;
     private javax.swing.JLabel eventsLabel;
     private javax.swing.JPanel eventsPanel;
     private javax.swing.JLabel examLabel;
@@ -332,6 +330,8 @@ public class AISHA_HOME extends javax.swing.JFrame {
     private javax.swing.JPanel newsPanel;
     private javax.swing.JLabel speakLabel;
     private javax.swing.JPanel speakPanel;
+    private javax.swing.JButton studentBtn;
+    private javax.swing.JLabel studentLabel;
     private javax.swing.JLabel weatherLabel;
     private javax.swing.JPanel weatherPanel;
     // End of variables declaration//GEN-END:variables
